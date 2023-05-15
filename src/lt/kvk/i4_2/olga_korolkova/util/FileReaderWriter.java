@@ -21,5 +21,11 @@ public class FileReaderWriter {
         Path file = Path.of(filePath);
         Files.write(file, lines, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
     }
+
+    public static void appendLineToFile(String filePath, String line) throws IOException {
+        Path file = Path.of(filePath);
+        String lineWithNewLine = line + System.lineSeparator();
+        Files.write(file, lineWithNewLine.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+    }
 }
 
