@@ -72,9 +72,22 @@ public class Main {
                 } else if (choice.equals("f")) {
                     choice = "Female";
                 }
-                writeOlderAnimalsToFile(MIN_ANIMAL_AGE, choice, OUTPUT_FILE_PATH);
+                System.out.println("Sort? (type name;name+age;age;n;  where n is no sort)");
+                String dec = scanner.nextLine();
+                if (checkSort(dec)) {
+                    writeOlderAnimalsToFile(MIN_ANIMAL_AGE, choice, OUTPUT_FILE_PATH, dec);
+                }
+                System.out.println("Sort? (type name;name+age;age;n;  where n is no sort)");
+                writeOlderAnimalsToFile(MIN_ANIMAL_AGE, choice, OUTPUT_FILE_PATH, "n");
             } else {
-                writeOlderAnimalsToFile(MIN_ANIMAL_AGE, OUTPUT_FILE_PATH); // set minimal age
+                System.out.println("Sort? (type name;name+age;age;n;  where n is no sort)");
+                choice = scanner.nextLine();
+                if (checkSort(choice)) {
+                    writeOlderAnimalsToFile(MIN_ANIMAL_AGE, OUTPUT_FILE_PATH, choice); // set minimal age
+                } else {
+                System.out.println("Wrong choice, not using sorting");
+                writeOlderAnimalsToFile(MIN_ANIMAL_AGE, OUTPUT_FILE_PATH, "n");
+                }
             }
 
             scanner.close();
@@ -84,6 +97,12 @@ public class Main {
 
     }
 
+    public boolean checkSort(String s) {
+        if (s != "name" || s != "name+age" || s!= "age" || s!= "n") {
+            return false;
+        }
+        return true;
+    }
     public void loadAnimalsFromFile(String filePath) throws IOException {
         List<String> lines = FileReaderWriter.readLinesFromFile(filePath);
         for (String line : lines) {
@@ -159,7 +178,7 @@ public class Main {
         System.out.println();
     }
 
-    public void writeOlderAnimalsToFile(int minAge, String filePath) throws IOException {
+    /*public void writeOlderAnimalsToFile(int minAge, String filePath) throws IOException {
         List<String> lines = animals.stream()
                 .filter(animal -> animal.getAge() >= minAge && (animal instanceof Cat || animal instanceof Dog))
                 .map(animal -> {
@@ -191,6 +210,79 @@ public class Main {
 
         FileReaderWriter.writeLinesToFile(filePath, lines);
         System.out.println("Older animals have been written to the file: " + filePath);
+    }*/
+
+    public void writeOlderAnimalsToFile(int minAge, String gender, String filePath, String sortingOption) throws IOException {
+        List<String> lines = animals.stream()
+                .filter(animal -> animal.getAge() >= minAge && animal.getGender().equalsIgnoreCase(gender))
+                .map(animal -> {
+                    String animalType = animal instanceof Cat ? "Cat" : "Dog";
+                    return animalType + ";" + animal.getName() + ";" + animal.getAge() + ";" + animal.getGender();
+                })
+                .map(Object::toString) // Convert stream elements to strings
+                .collect(Collectors.toList());
+
+        if (lines.isEmpty()) {
+            lines.add("No animals with age of " + minAge + " and gender " + gender);
+        }
+
+        sortLines(lines, sortingOption); // Sort the lines based on the sorting option
+
+        FileReaderWriter.writeLinesToFile(filePath, lines);
+        System.out.println("Older animals have been written to the file: " + filePath);
     }
 
+    public void writeOlderAnimalsToFile(int minAge, String filePath, String sortingOption) throws IOException {
+        List<String> lines = animals.stream()
+                .filter(animal -> animal.getAge() >= minAge && (animal instanceof Cat || animal instanceof Dog))
+                .map(animal -> {
+                    String animalType = animal instanceof Cat ? "Cat" : "Dog";
+                    return animalType + ";" + animal.getName() + ";" + animal.getAge() + ";" + animal.getGender();
+                })
+                .map(Object::toString) // Convert stream elements to strings
+                .collect(Collectors.toList());
+    
+        if (lines.isEmpty()) {
+            lines.add("No animals with age of " + minAge);
+        }
+    
+        sortLines(lines, sortingOption); // Sort the lines based on the sorting option
+    
+        FileReaderWriter.writeLinesToFile(filePath, lines);
+        System.out.println("Older animals have been written to the file: " + filePath);
+    }
+    
+    
+    private void sortLines(List<String> lines, String sortingOption) {
+        switch (sortingOption.toLowerCase()) {
+            case "name":
+                Collections.sort(lines, Comparator.comparing(line -> {
+                    String[] parts = line.split(";");
+                    return parts[1]; // Sort by name
+                }));
+                break;
+            case "name+age":
+                Collections.sort(lines, Comparator.comparing(line -> {
+                    String[] parts = line.split(";");
+                    return parts[1]; // Sort by name
+                }).thenComparing(line -> {
+                    String[] parts = line.split(";");
+                    return Integer.parseInt(parts[2]); // Then sort by age
+                }));
+                break;
+            case "age":
+                Collections.sort(lines, Comparator.comparingInt(line -> {
+                    String[] parts = line.split(";");
+                    return Integer.parseInt(parts[2]); // Sort by age
+                }));
+                break;
+            case "none":
+                // No sorting, do nothing
+                break;
+            default:
+                System.out.println("Invalid sorting option. Defaulting to 'none'.");
+                break;
+        }
+    }
+    
 }
