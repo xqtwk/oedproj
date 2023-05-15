@@ -18,7 +18,8 @@ public class FileReaderWriter {
     }
 
     public static void writeLinesToFile(String filePath, List<String> lines) throws IOException {
-        Files.write(Path.of(filePath), lines, StandardOpenOption.APPEND);
+        Path file = Path.of(filePath);
+        Files.write(file, lines, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
     }
 }
 
