@@ -1,5 +1,14 @@
 package lt.kvk.i4_2.olga_korolkova.main.animals;
 
-public class Dog {
-    
+import lt.kvk.i4_2.olga_korolkova.main.Animal;
+
+public class Dog extends Animal {
+    public Dog(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
 }
