@@ -1,0 +1,3 @@
+Cat;Whiskers;3
+Cat;Mittens;5
+Cat;Snowball;2

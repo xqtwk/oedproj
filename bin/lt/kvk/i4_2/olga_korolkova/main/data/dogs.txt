@@ -1,0 +1,3 @@
+Dog;Buddy;4
+Dog;Max;7
+Dog;Charlie;3
