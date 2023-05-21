@@ -36,6 +36,15 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
 
             do {
+                System.out.println("Enter the name of the animal to search:");
+                String searchName = scanner.nextLine();
+            
+                Animal foundAnimal = searchAnimalByName(searchName);
+                if (foundAnimal != null) {
+                    System.out.println("Animal found: " + foundAnimal);
+                } else {
+                    System.out.println("Animal not found.");
+                }
                 System.out.println("Do you want to add a new dog or cat? (Y/N)");
                 choice = scanner.nextLine().toUpperCase();
 
@@ -62,6 +71,7 @@ public class Main {
             loadAnimalsFromFile(CATS_FILE_PATH);
             loadAnimalsFromFile(DOGS_FILE_PATH);
             Scanner scanner = new Scanner(System.in);
+            
             System.out.println("Want to filter the output by gender? (Y/N)");
             choice = scanner.nextLine();
 
@@ -97,6 +107,15 @@ public class Main {
             System.out.println("An error occurred: " + e.getMessage());
         }
 
+    }
+
+    public Animal searchAnimalByName(String name) {
+        for (Animal animal : animals) {
+            if (animal.getName().equalsIgnoreCase(name)) {
+                return animal;
+            }
+        }
+        return null; // Animal not found
     }
 
     public boolean checkSort(String s) {
