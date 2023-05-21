@@ -15,6 +15,7 @@ public class Main {
     private static final String CATS_FILE_PATH = ".\\src\\lt\\kvk\\i4_2\\olga_korolkova\\main\\data\\cats.txt";
     private static final String DOGS_FILE_PATH = ".\\src\\lt\\kvk\\i4_2\\olga_korolkova\\main\\data\\dogs.txt";
     private static final String OUTPUT_FILE_PATH = ".\\src\\lt\\kvk\\i4_2\\olga_korolkova\\main\\data\\output.txt";
+    private static final String LOGS_FILE_PATH = ".\\src\\lt\\kvk\\i4_2\\olga_korolkova\\main\\data\\logs.txt";
     private static final int MIN_ANIMAL_AGE = 1;
 
     public Main() {
@@ -231,6 +232,9 @@ public class Main {
         sortLines(lines, sortingOption); // Sort the lines based on the sorting option
 
         FileReaderWriter.writeLinesToFile(filePath, lines);
+
+        // more files, without overwriting
+        FileReaderWriter.appendLineToFile(LOGS_FILE_PATH, sortingOption);
         System.out.println("Older animals have been written to the file: " + filePath);
     }
 
@@ -251,7 +255,9 @@ public class Main {
         sortLines(lines, sortingOption); // Sort the lines based on the sorting option
     
         FileReaderWriter.writeLinesToFile(filePath, lines);
-        FileReaderWriter.appendLineToFile(filePath, sortingOption);
+
+        // more files, without overwriting
+        FileReaderWriter.appendLineToFile(LOGS_FILE_PATH, sortingOption);
         System.out.println("Older animals have been written to the file: " + filePath);
     }
     

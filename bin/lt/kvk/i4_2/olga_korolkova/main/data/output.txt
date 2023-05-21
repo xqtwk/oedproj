@@ -1,3 +1,4 @@
-Dog;pps;18;Male
-Dog;August;19;Male
-Dog;Bob;555;Male
+Cat;Marcelina;9;Female
+Cat;yyy;11;Female
+Cat;Zora;90;Female
+Cat;Gabriel;1000;Female
