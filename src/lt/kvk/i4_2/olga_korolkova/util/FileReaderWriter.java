@@ -16,12 +16,12 @@ public class FileReaderWriter {
         }
         return Files.readAllLines(Path.of(filePath));
     }
-
+    // overwriting
     public static void writeLinesToFile(String filePath, List<String> lines) throws IOException {
         Path file = Path.of(filePath);
         Files.write(file, lines, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
     }
-
+    // no overwriting
     public static void appendLineToFile(String filePath, String line) throws IOException {
         Path file = Path.of(filePath);
         String lineWithNewLine = line + System.lineSeparator();
