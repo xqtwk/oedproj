@@ -76,9 +76,10 @@ public class Main {
                 String dec = scanner.nextLine();
                 if (checkSort(dec)) {
                     writeOlderAnimalsToFile(MIN_ANIMAL_AGE, choice, OUTPUT_FILE_PATH, dec);
-                }
+                } else {
                 System.out.println("Sort? (type name;name+age;age;n;  where n is no sort)");
                 writeOlderAnimalsToFile(MIN_ANIMAL_AGE, choice, OUTPUT_FILE_PATH, "n");
+                }
             } else {
                 System.out.println("Sort? (type name;name+age;age;n;  where n is no sort)");
                 choice = scanner.nextLine();
@@ -98,11 +99,12 @@ public class Main {
     }
 
     public boolean checkSort(String s) {
-        if (s != "name" || s != "name+age" || s!= "age" || s!= "n") {
+        if (!s.equals("name") && !s.equals("name+age") && !s.equals("age") && !s.equals("n")) {
             return false;
         }
         return true;
     }
+    
     public void loadAnimalsFromFile(String filePath) throws IOException {
         List<String> lines = FileReaderWriter.readLinesFromFile(filePath);
         for (String line : lines) {
@@ -249,6 +251,7 @@ public class Main {
         sortLines(lines, sortingOption); // Sort the lines based on the sorting option
     
         FileReaderWriter.writeLinesToFile(filePath, lines);
+        FileReaderWriter.appendLineToFile(filePath, sortingOption);
         System.out.println("Older animals have been written to the file: " + filePath);
     }
     
@@ -257,22 +260,22 @@ public class Main {
         switch (sortingOption.toLowerCase()) {
             case "name":
                 Collections.sort(lines, Comparator.comparing(line -> {
-                    String[] parts = line.split(";");
+                    String[] parts = ((String) line).split(";");
                     return parts[1]; // Sort by name
                 }));
                 break;
             case "name+age":
                 Collections.sort(lines, Comparator.comparing(line -> {
-                    String[] parts = line.split(";");
+                    String[] parts = ((String) line).split(";");
                     return parts[1]; // Sort by name
                 }).thenComparing(line -> {
-                    String[] parts = line.split(";");
+                    String[] parts = ((String) line).split(";");
                     return Integer.parseInt(parts[2]); // Then sort by age
                 }));
                 break;
             case "age":
                 Collections.sort(lines, Comparator.comparingInt(line -> {
-                    String[] parts = line.split(";");
+                    String[] parts = ((String) line).split(";");
                     return Integer.parseInt(parts[2]); // Sort by age
                 }));
                 break;
@@ -284,5 +287,6 @@ public class Main {
                 break;
         }
     }
+    
     
 }
