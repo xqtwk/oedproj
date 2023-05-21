@@ -130,6 +130,48 @@ public class Main {
         animals.add(animal);
     }
 
+    public void addNewAnimal(String animalData, String filePath) {
+        System.out.println("Enter the animal data (name;age;gender):");
+        String[] parts = animalData.split(";");
+
+        if (parts.length == 3) {
+            String name = parts[0];
+            int age = Integer.parseInt(parts[1]);
+            String genderInput = parts[2];
+
+            Gender gender;
+            if (genderInput.equalsIgnoreCase("male")) {
+                gender = Gender.MALE;
+            } else if (genderInput.equalsIgnoreCase("female")) {
+                gender = Gender.FEMALE;
+            } else {
+                System.out.println("Invalid gender. Skipping entry.");
+                return;
+            }
+
+            String animalType;
+            if (filePath.equals(DOGS_FILE_PATH)) {
+                animalType = "Dog";
+            } else if (filePath.equals(CATS_FILE_PATH)) {
+                animalType = "Cat";
+            } else {
+                System.out.println("Invalid file path. Skipping entry.");
+                return;
+            }
+
+            String formattedAnimalData = String.format("%s;%s;%d;%s", animalType, name, age, gender.getDisplayName());
+
+            try {
+                FileReaderWriter.appendLineToFile(filePath, formattedAnimalData);
+                System.out.println("Animal added successfully.");
+            } catch (IOException e) {
+                System.out.println("An error occurred while adding the animal: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Invalid input format. Skipping entry.");
+        }
+    }
+
     public void addNewAnimal(Scanner scanner, String filePath) {
         System.out.println("Enter the animal data (name;age;gender):");
         String animalData = scanner.nextLine();
@@ -259,6 +301,11 @@ public class Main {
                 break;
         }
     }
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
     
     
 }
