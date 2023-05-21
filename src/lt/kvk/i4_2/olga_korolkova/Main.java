@@ -181,40 +181,6 @@ public class Main {
         System.out.println();
     }
 
-    /*public void writeOlderAnimalsToFile(int minAge, String filePath) throws IOException {
-        List<String> lines = animals.stream()
-                .filter(animal -> animal.getAge() >= minAge && (animal instanceof Cat || animal instanceof Dog))
-                .map(animal -> {
-                    String animalType = animal instanceof Cat ? "Cat" : "Dog";
-                    return animalType + ";" + animal.getName() + ";" + animal.getAge() + ";" + animal.getGender();
-                })
-                .collect(Collectors.toList());
-
-        if (lines.isEmpty()) {
-            lines.add("No animals with age of " + minAge);
-        }
-
-        FileReaderWriter.writeLinesToFile(filePath, lines);
-        System.out.println("Older animals have been written to the file: " + filePath);
-    }
-
-    public void writeOlderAnimalsToFile(int minAge, String gender, String filePath) throws IOException {
-        List<String> lines = animals.stream()
-                .filter(animal -> animal.getAge() >= minAge && animal.getGender().equalsIgnoreCase(gender))
-                .map(animal -> {
-                    String animalType = animal instanceof Cat ? "Cat" : "Dog";
-                    return animalType + ";" + animal.getName() + ";" + animal.getAge() + ";" + animal.getGender();
-                })
-                .collect(Collectors.toList());
-
-        if (lines.isEmpty()) {
-            lines.add("No animals with age of " + minAge + " and gender " + gender);
-        }
-
-        FileReaderWriter.writeLinesToFile(filePath, lines);
-        System.out.println("Older animals have been written to the file: " + filePath);
-    }*/
-
     public void writeOlderAnimalsToFile(int minAge, String gender, String filePath, String sortingOption) throws IOException {
         List<String> lines = animals.stream()
                 .filter(animal -> animal.getAge() >= minAge && animal.getGender().equalsIgnoreCase(gender))
