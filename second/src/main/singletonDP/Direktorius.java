@@ -1,4 +1,4 @@
-package main;
+package main.singletonDP;
 
 public class Direktorius {
     private static Direktorius direktoriusInstance;
