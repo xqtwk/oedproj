@@ -1,7 +1,5 @@
-package main;
+package main.builderDP;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Darbuotojas {
     private String vardas;
