@@ -1,6 +1,0 @@
-kitty;55;Female
-Garfield;98;Male
-Cat;Gabriel;1000;Female
-Cat;Marcelina;9;Female
-Cat;Zora;90;Female
-Cat;yyy;11;Female

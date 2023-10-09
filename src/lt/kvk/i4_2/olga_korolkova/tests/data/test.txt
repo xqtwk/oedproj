@@ -1,4 +1,0 @@
-Line A
-Line B
-Line C
-Appended line
