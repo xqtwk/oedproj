@@ -1,3 +1,3 @@
-Differents assignments
+Different assignments
 
 Java
